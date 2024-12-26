@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task management</title>
+    <link rel="stylesheet" href="style/dist/output.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@400;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+    <main class="grid place-items-center">
+        <section>
+            <div class=" bg-quaternaryColor mt-[30%] mx-[25px] rounded-lg shadow-lg  lg:mt-[30%] ">
+                <div class="grid place-items-center">
+                    <h1 class="font-sans font-semibold text-[24px] px-[50px] py-[10px] text-center lg:mt-[20px] lg:text-">We need
+                        your name &
+                        role to move on</h1>
+                    <form id="userForm">
+                        <div class="mt-[80px]">
+                            <div>
+                                <label for="name" class="text-lg font-semibold text-secondaryColor font-sans">First Name</label>
+                                <input class="mt-[4px] p-3 px-3 w-full rounded-xl border-primaryColor border-spacing-4" id="name"
+                                    type="text" minlength="3" maxlength="10" required>
+                            </div>
+                            <div class="mt-10">
+                                <label for="role" class="text-lg font-semibold text-secondaryColor">Role</label>
+                                <select class="mt-[4px] p-3 px-3 w-full rounded-xl border-primaryColor border-spacing-4"
+                                    id="role" required>
+                                    <option value="" disabled selected>Select your role</option>
+                                    <option value="Full stack">Full stack developer</option>
+                                    <option value="Front end">Front end developer</option>
+                                    <option value="Back end">Back end developer</option>
+                                    <option value="Mobile dev">mobile developer</option>
+                                </select>
+                            </div>
+                            <button id="submit" class="mt-[70px] mb-10 py-2 px-20 rounded-3xl bg-primaryColor w-full text-white"">Proceed</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+
+</html>

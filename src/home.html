@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style/dist/output.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@400;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+    <main>
+        <div class=" mt-[10%] mx-2 block w-auto h-fit bg-quaternaryColor rounded-3xl lg:flex gap-[120px]">
+            <section>
+                <div
+                    class="mx-0 w-auto bg-primaryColor rounded-tl-3xl rounded-tr-3xl h-[130px] grid place-items-center lg:w-[100%] lg:rounded-tr-none">
+                    <div class="text-center text-white">
+                        <p class="font-sans font-bold text-[48px] relative" id="time"> <span
+                                class="text-[20px] absolute top-[2px]" id="seconds"></span></p>
+                        <p class="font sans font-extralight text-[20px]" id="date"></p>
+                    </div>
+                </div>
+                <div class="mx-0 w-auto bg-secondaryColor h-[70px] grid place-items-center lg:w-[100%]">
+                    <div class="text-center text-white px-2 ">
+                        <p class="font sans font-thin text-[15px]" id="userAndRole"></p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <div class="flex justify-center items-center gap-2 mt-3 text-white">
+                    <button id="ongoingbtn" class="bg-primaryColor w-32 rounded-lg px-2">On going</button>
+                    <button id="donebtn" class="bg-primaryColor w-32 rounded-lg px-2">Done</button>
+                </div>
+
+                <div>
+                    <!-- Content on going -->
+                    <div id="ongoingContent">
+                        test
+                    </div>
+                    <!-- Content done -->
+                    <div id="doneContent">
+                        test 2
+                    </div>
+                    <!-- content insert task -->
+                    <div id="newContent">
+                        test 3
+                    </div>
+                    <button id="newtaskbtn" class="bg-primaryColor w-32 rounded-lg px-2">Add new task</button>
+                </div>
+            </section>
+
+        </div>
+    </main>
+</body>
+<script src="script.js"></script>
+
+</html>

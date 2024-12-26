@@ -1,0 +1,21 @@
+{
+  "name": "taskmanagement",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tailwindcss build src/style/style.css -o src/style/dist/output.css",
+    "watch": "tailwindcss build src/style/style.css -o src/style/dist/output.css --watch" 
+    
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "tailwindcss": "^3.4.17"
+  },
+  "dependencies": {
+    "@fontsource/lexend-deca": "^5.1.0"
+  }
+}
