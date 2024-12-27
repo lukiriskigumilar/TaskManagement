@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Task management</title>
     <link rel="stylesheet" href="style/dist/output.css">
     <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@400;700&display=swap" rel="stylesheet">
 
@@ -12,43 +12,71 @@
 
 <body>
     <main>
-        <div class=" mt-[10%] mx-2 block w-auto h-fit bg-quaternaryColor rounded-3xl lg:flex gap-[120px]">
+        <div
+            class=" mt-[10%] mx-2 block w-auto h-fit bg-quaternaryColor rounded-3xl lg:flex gap-[190px] lg:mx-10 lg:mt-[3%]">
             <section>
-                <div
-                    class="mx-0 w-auto bg-primaryColor rounded-tl-3xl rounded-tr-3xl h-[130px] grid place-items-center lg:w-[100%] lg:rounded-tr-none">
+                <div class="mx-0 w-auto bg-primaryColor rounded-tl-3xl rounded-tr-3xl h-[130px]  grid place-items-center lg:w-[600px]  
+                    lg:h-[180px]   lg:rounded-tr-none">
                     <div class="text-center text-white">
-                        <p class="font-sans font-bold text-[48px] relative" id="time"> <span
-                                class="text-[20px] absolute top-[2px]" id="seconds"></span></p>
-                        <p class="font sans font-extralight text-[20px]" id="date"></p>
+                        <p class="font-sans font-bold text-[48px] lg:text-[80px]  relative" id="time"> <span
+                                class="text-[20px] absolute top-[2px] lg:top-[10px]" id="seconds"></span></p>
+                        <p class="font sans font-extralight text-[20px] lg:text-[30px] lg:-mt-5 lg:font-thin" id="date">
+                        </p>
                     </div>
                 </div>
-                <div class="mx-0 w-auto bg-secondaryColor h-[70px] grid place-items-center lg:w-[100%]">
-                    <div class="text-center text-white px-2 ">
-                        <p class="font sans font-thin text-[15px]" id="userAndRole"></p>
+                <div
+                    class="mx-0 w-auto bg-secondaryColor h-[70px] grid place-items-center lg:place-items-start lg:w-[600px] lg:rounded-bl-3xl lg:h-[550px]">
+
+                    <div class="text-center text-white px-2 lg:px-12 lg:py-5">
+                        <p class="font sans font-thin text-[15px] lg:text-[25px]" id="userAndRole"></p>
+                    </div>
+                    <div class="hidden lg:flex flex-col gap-10 mt-0 lg:-mt-36 lg:pl-[120px] w-full lg:w-auto">
+                        <button 
+                            class="ongoingbtn bg-primaryColor w-full lg:w-[320px] lg:h-[50px] rounded-lg px-2 
+                            outline outline-4 outline-offset-2 outline-primaryColor text-white
+                            hover:bg-slate-500">On Going</button>
+                        <button 
+                            class="donebtn bg-primaryColor w-full lg:w-[320px] lg:h-[50px] rounded-lg px-2 
+                            outline outline-4 outline-offset-2 outline-primaryColor text-white
+                            hover:bg-slate-500">Done</button>
+                        <button 
+                            class="newbtn bg-primaryColor w-full lg:w-[320px] lg:h-[50px] rounded-lg px-2 
+                            outline outline-4 outline-offset-2 outline-primaryColor text-white
+                            hover:bg-slate-500 ">New
+                            task</button>
                     </div>
                 </div>
+
             </section>
 
             <section>
-                <div class="flex justify-center items-center gap-2 mt-3 text-white">
-                    <button id="ongoingbtn" class="bg-primaryColor w-32 rounded-lg px-2">On going</button>
-                    <button id="donebtn" class="bg-primaryColor w-32 rounded-lg px-2">Done</button>
+                <div class="flex justify-center items-center gap-2 px-2 mt-3 text-white">
+                    <button class="ongoingbtn bg-primaryColor w-32 rounded-lg px-2 lg:hidden">On going</button>
+                    <button class="donebtn bg-primaryColor w-32 rounded-lg px-2 lg:hidden">Done</button>
+                    <button class="newbtn bg-primaryColor w-32 rounded-lg px-2 lg:hidden">New task</button>
                 </div>
 
                 <div>
                     <!-- Content on going -->
-                    <div id="ongoingContent">
-                        test
+                    <div id="ongoingContent" class="hidden">
+                        ongoingbtn
                     </div>
                     <!-- Content done -->
-                    <div id="doneContent">
-                        test 2
+                    <div id="doneContent" class="hidden">
+                        done
                     </div>
                     <!-- content insert task -->
-                    <div id="newContent">
-                        test 3
+                    <div id="newContent" class="">
+                        <div class="mt-[30px] mx-6">
+                            <div>
+                                <h1 class="font-sans font-bold text-center text-[20px]">Submit a new task to your ongoing project list.</h1>
+                            </div>
+                        </div>
+
+
+
                     </div>
-                    <button id="newtaskbtn" class="bg-primaryColor w-32 rounded-lg px-2">Add new task</button>
+                    
                 </div>
             </section>
 
