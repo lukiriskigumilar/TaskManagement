@@ -338,7 +338,7 @@ function updateOngoingTasks() {
 
         // Buat elemen HTML tugas
         const taskElement = document.createElement('div');
-        taskElement.className = `w-auto lg:w-[540px] -mx-1 ${taskClass} block shadow-lg rounded-lg mb-4 lg:width-[120px]`;
+        taskElement.className = `w-auto lg:w-auto -mx-1 ${taskClass} block shadow-lg rounded-lg mb-4 lg:width-[120px]`;
         taskElement.innerHTML = `
             <div class="flex justify-between items-center pl-1 pr-1 py-2 lg:px-3">
                 <p class="font-bold ${taskClassPriority}">${task.priorityTask} Priority</p>

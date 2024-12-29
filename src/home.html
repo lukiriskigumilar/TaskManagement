@@ -12,134 +12,128 @@
 
 <body>
     <main>
-        <div
-            class=" mt-[10%] mx-2 block w-auto h-fit bg-quaternaryColor rounded-3xl lg:flex gap-[0px] lg:mx-10 lg:mt-[3%]">
-            <section>
-                <div class="mx-0 w-auto bg-primaryColor rounded-tl-3xl rounded-tr-3xl h-[130px]  grid place-items-center lg:w-[450px]  
-                    lg:h-[180px]   lg:rounded-tr-none">
-                    <div class="text-center text-white">
-                        <p class="font-sans font-bold text-[48px] lg:text-[80px]  relative" id="time"> <span
-                                class="text-[20px] absolute top-[2px] lg:top-[10px]" id="seconds"></span></p>
-                        <p class="font sans font-extralight text-[20px] lg:text-[30px] lg:-mt-5 lg:font-thin" id="date">
-                        </p>
+        <div class="lg:flex items-center justify-center min-h-screen">
+            <div
+                class=" mt-[10%] mx-2 block max-w-[1200px] h-fit bg-quaternaryColor rounded-3xl lg:flex gap-[0px] lg:mx-10 lg:mt-[3%]">
+                <section>
+                    <div class="mx-0 w-auto bg-primaryColor rounded-tl-3xl rounded-tr-3xl h-[130px]  grid place-items-center lg:w-[450px]
+                        lg:h-[180px]   lg:rounded-tr-none">
+                        <div class="text-center text-white">
+                            <p class="font-sans font-bold text-[48px] lg:text-[80px]  relative" id="time"> <span
+                                    class="text-[20px] absolute top-[2px] lg:top-[10px]" id="seconds"></span></p>
+                            <p class="font sans font-extralight text-[20px] lg:text-[30px] lg:-mt-5 lg:font-thin" id="date">
+                            </p>
+                        </div>
                     </div>
-                </div>
-                <div
-                    class="mx-0 w-auto bg-secondaryColor h-[70px] grid place-items-center lg:place-items-start lg:w-[450px] lg:rounded-bl-3xl lg:h-[350px]">
-
-                    <div class="text-center text-white px-2 lg:px-12 lg:py-3">
-                        <p class="font sans font-thin text-[15px] lg:text-[px]" id="userAndRole"></p>
+                    <div
+                        class="mx-0 w-auto bg-secondaryColor h-[70px] grid place-items-center lg:place-items-start lg:w-[450px] lg:rounded-bl-3xl lg:h-[350px]">
+                        <div class="text-center text-white px-2 lg:px-12 lg:py-3">
+                            <p class="font sans font-thin text-[15px] lg:text-[px]" id="userAndRole"></p>
+                        </div>
+                        <div class="hidden lg:flex flex-col gap-5 mt-0 lg:-mt-10 lg:pl-[70px] w-full lg:w-auto">
+                            <button class="ongoingbtn bg-primaryColor w-full lg:w-[320px] lg:h-[50px] rounded-lg px-2
+                                outline outline-4 outline-offset-2 outline-primaryColor text-white
+                            ">On Going</button>
+                            <button class="donebtn bg-primaryColor w-full lg:w-[320px] lg:h-[50px] rounded-lg px-2
+                                outline outline-4 outline-offset-2 outline-primaryColor text-white
+                            ">Done</button>
+                            <button class="newbtn bg-primaryColor w-full lg:w-[320px] lg:h-[50px] rounded-lg px-2
+                                outline outline-4 outline-offset-2 outline-primaryColor text-white
+                                ">New
+                                task</button>
+                        </div>
                     </div>
-                    <div class="hidden lg:flex flex-col gap-5 mt-0 lg:-mt-10 lg:pl-[70px] w-full lg:w-auto">
-                        <button class="ongoingbtn bg-primaryColor w-full lg:w-[320px] lg:h-[50px] rounded-lg px-2 
-                            outline outline-4 outline-offset-2 outline-primaryColor text-white
-                        ">On Going</button>
-                        <button class="donebtn bg-primaryColor w-full lg:w-[320px] lg:h-[50px] rounded-lg px-2 
-                            outline outline-4 outline-offset-2 outline-primaryColor text-white
-                        ">Done</button>
-                        <button class="newbtn bg-primaryColor w-full lg:w-[320px] lg:h-[50px] rounded-lg px-2 
-                            outline outline-4 outline-offset-2 outline-primaryColor text-white
-                            ">New
-                            task</button>
+                </section>
+                <section class="overflow-y-auto lg:max-h-[500px] lg:max-w-[750px]">
+                    <div class="flex justify-center items-center gap-2 px-2 mt-3 text-white">
+                        <button class="ongoingbtn bg-primaryColor w-32 rounded-lg px-2 lg:hidden">On going</button>
+                        <button class="donebtn bg-primaryColor w-32 rounded-lg px-2 lg:hidden">Done</button>
+                        <button class="newbtn bg-primaryColor w-32 rounded-lg px-2 lg:hidden">New task</button>
                     </div>
-                </div>
-            </section>
-
-            <section class="overflow-y-auto lg:max-h-[500px] lg:max-w-[750px]">
-                <div class="flex justify-center items-center gap-2 px-2 mt-3 text-white">
-                    <button class="ongoingbtn bg-primaryColor w-32 rounded-lg px-2 lg:hidden">On going</button>
-                    <button class="donebtn bg-primaryColor w-32 rounded-lg px-2 lg:hidden">Done</button>
-                    <button class="newbtn bg-primaryColor w-32 rounded-lg px-2 lg:hidden">New task</button>
-                </div>
-
-                <div>
-                    <!-- Content on going -->
-                    <div id="ongoingContent" class="">
-                        <div class="mt-[30px] mx-6 lg:mx-24 lg-mt-0 ">
-                            <div class="bg-tertiaryColor w-auto h-fit -mx-2 rounded-2xl px-3 py-3 lg:px-5">
-                                <h1 class="font-sans font-bold text-center text-[20px] lg:px-0 lg:text-[25px] lg:mx-[80px]">Check out the projects that have been created here</h1>
-                                <!-- Card -->
-                                <div class=" mt-[30px]" id="tasksContainer" >
-                                    <div class="w-auto l-mx-1 bg-taskHighColor block shadow-lg rounded-lg">
-                                        <div class="flex justify-between items-center pl-1 pr-1 py-2">
-                                            <p>High Priority</p>
-                                            <p>12D 12H to go</p>
-                                        </div>
-                                        <hr>
-                                        <div class="flex justify-between items-center pl-4 pr-1 gap-2 py-4">
-                                            <p> Menambahkan tampilan baru di mobile menjadi lebih bagus </p>
-                                            <div class="flex flex-col">
-                                                <button class="bg-secondaryColor rounded-md text-white px-1"
-                                                    id="finish-button">Finish</button>
-                                                <button class="bg-red-700 rounded-md text-white px-1 mt-2"
-                                                    id="delete-button">Delete</button>
+                    <div>
+                        <!-- Content on going -->
+                        <div id="ongoingContent" class="">
+                            <div class="mt-[30px] mx-6 lg:mx-24 lg-mt-0 ">
+                                <div class="bg-tertiaryColor w-auto h-fit -mx-2 rounded-2xl px-3 py-3 lg:px-5">
+                                    <h1 class="font-sans font-bold text-center text-[20px] lg:px-0 lg:text-[25px] xl:mx-[80px]
+                                    ">Check out the projects that have been created here</h1>
+                                    <!-- Card -->
+                                    <div class=" mt-[30px]" id="tasksContainer" >
+                                        <div class="w-auto l-mx-1 bg-taskHighColor block shadow-lg rounded-lg">
+                                            <div class="flex justify-between items-center pl-1 pr-1 py-2">
+                                                <p>High Priority</p>
+                                                <p>12D 12H to go</p>
+                                            </div>
+                                            <hr>
+                                            <div class="flex justify-between items-center pl-4 pr-1 gap-2 py-4">
+                                                <p> Menambahkan tampilan baru di mobile menjadi lebih bagus </p>
+                                                <div class="flex flex-col">
+                                                    <button class="bg-secondaryColor rounded-md text-white px-1"
+                                                        id="finish-button">Finish</button>
+                                                    <button class="bg-red-700 rounded-md text-white px-1 mt-2"
+                                                        id="delete-button">Delete</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+                                    <!-- end of card -->
                                 </div>
-                                <!-- end of card -->
-                            </div>
-
-
-                        </div>
-                    </div>
-                    <!-- end  Content on going -->
-
-                    <!-- Content done -->
-                    <div id="doneContent" class="hidden">
-                        done
-                    </div>
-                    <!-- End Content done -->
-
-                    <!-- content insert task -->
-                    <div id="newContent" class="hidden">
-                        <div class="mt-[30px] mx-6 lg:mx-24 lg-mt-0">
-                            <div class="bg-tertiaryColor w-auto h-fit -mx-2 rounded-2xl px-3 py-3 lg:px-5">
-                                <h1 class="font-sans font-bold text-center text-[20px] lg:px-10 lg:text-[25px]">Submit a
-                                    new task to your
-                                    ongoing project list</h1>
-                                <form action="" id="taskForm">
-                                    <div class="mt-7">
-                                        <label for="taskName"
-                                            class=" font-sans text-lg font-bold text-primaryColor">Detail
-                                            Task</label>
-                                        <textarea id="taskName" name="taskName" rows="4" maxlength="100"
-                                            class="mt-[4px] p-3 appearance-none border rounded w-full py-1.5 leading-tight focus:outline-none focus:shadow-outline"
-                                            required></textarea>
-                                    </div>
-                                    <div class="mt-1">
-                                        <label for="priorityTask"
-                                            class=" font-sans text-lg font-bold text-primaryColor">Priority Task</label>
-                                        <select
-                                            class="mt-[4px] p-3 appearance-none border rounded w-full py-1.5 leading-tight focus:outline-none focus:shadow-outline"
-                                            id="priorityTask" required>
-                                            <option value="" disabled selected>Pick Critical Task</option>
-                                            <option value="High" class="text-red-700">High Priority</option>
-                                            <option value="Medium" class="text-amber-600">Medium Priority</option>
-                                            <option value="Low" class="text-blue-500">Low Priority</option>
-                                        </select>
-                                    </div>
-                                    <div class="mt-1">
-                                        <label for="deadlineDate"
-                                            class=" font-sans text-lg font-bold text-primaryColor">Deadline date</label>
-                                        <input type="datetime-local" id="deadlineDate"
-                                            class="mt-[4px] p-3 appearance-none border rounded w-full py-1.5 leading-tight focus:outline-none focus:shadow-outline"
-                                            required>
-                                    </div>
-                                    <div class="mt-[20px] flex items-center justify-center">
-                                        <button id="saveTask"
-                                            class=" bg-primaryColor w-60 rounded-lg px-2 py-2 text-white">Submit
-                                            Task</button>
-                                    </div>
-                                </form>
                             </div>
                         </div>
+                        <!-- end  Content on going -->
+                        <!-- Content done -->
+                        <div id="doneContent" class="hidden">
+                            done
+                        </div>
+                        <!-- End Content done -->
+                        <!-- content insert task -->
+                        <div id="newContent" class="hidden">
+                            <div class="mt-[30px] mx-6 lg:mx-24 lg-mt-0">
+                                <div class="bg-tertiaryColor w-auto h-fit -mx-2 rounded-2xl px-3 py-3 lg:px-5">
+                                    <h1 class="font-sans font-bold text-center text-[20px] lg:px-10 lg:text-[25px]">Submit a
+                                        new task to your
+                                        ongoing project list</h1>
+                                    <form action="" id="taskForm">
+                                        <div class="mt-7">
+                                            <label for="taskName"
+                                                class=" font-sans text-lg font-bold text-primaryColor">Detail
+                                                Task</label>
+                                            <textarea id="taskName" name="taskName" rows="4" maxlength="100"
+                                                class="mt-[4px] p-3 appearance-none border rounded w-full py-1.5 leading-tight focus:outline-none focus:shadow-outline"
+                                                required></textarea>
+                                        </div>
+                                        <div class="mt-1">
+                                            <label for="priorityTask"
+                                                class=" font-sans text-lg font-bold text-primaryColor">Priority Task</label>
+                                            <select
+                                                class="mt-[4px] p-3 appearance-none border rounded w-full py-1.5 leading-tight focus:outline-none focus:shadow-outline"
+                                                id="priorityTask" required>
+                                                <option value="" disabled selected>Pick Critical Task</option>
+                                                <option value="High" class="text-red-700">High Priority</option>
+                                                <option value="Medium" class="text-amber-600">Medium Priority</option>
+                                                <option value="Low" class="text-blue-500">Low Priority</option>
+                                            </select>
+                                        </div>
+                                        <div class="mt-1">
+                                            <label for="deadlineDate"
+                                                class=" font-sans text-lg font-bold text-primaryColor">Deadline date</label>
+                                            <input type="datetime-local" id="deadlineDate"
+                                                class="mt-[4px] p-3 appearance-none border rounded w-full py-1.5 leading-tight focus:outline-none focus:shadow-outline"
+                                                required>
+                                        </div>
+                                        <div class="mt-[20px] flex items-center justify-center">
+                                            <button id="saveTask"
+                                                class=" bg-primaryColor w-60 rounded-lg px-2 py-2 text-white">Submit
+                                                Task</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end content insert task -->
                     </div>
-                    <!-- end content insert task -->
-
-                </div>
-            </section>
-
+                </section>
+            </div>
         </div>
     </main>
 </body>
