@@ -184,9 +184,18 @@ function savNewTask(event) { // Tambahkan parameter event
     setTimeout(() => {
         const doneContent = document.getElementById('doneContent');
         const newContent = document.getElementById('newContent');
+        const donebtn = document.querySelectorAll('.donebtn');
+        const newbtn = document.querySelectorAll('.newbtn');
 
         newContent.classList.add('hidden');
         doneContent.classList.remove('hidden');
+        newbtn.forEach(btn => {
+            btn.classList.remove('bg-secondaryColor', 'font-bold', 'text-white');
+        });
+        donebtn.forEach(btn => {
+            btn.classList.add('bg-secondaryColor', 'font-bold', 'text-white');
+        });
+
     })
     document.getElementById('taskForm').reset(); // Reset form setelah submit
 }
