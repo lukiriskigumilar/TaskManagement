@@ -36,7 +36,7 @@
                             ">Task Management</button>
                             <button class="donebtn bg-primaryColor w-full lg:w-[320px] lg:h-[50px] rounded-lg px-2
                                 outline outline-4 outline-offset-2 outline-primaryColor text-white
-                            ">Task Reflection</button>
+                            ">Task Done</button>
                             <button class="newbtn bg-primaryColor w-full lg:w-[320px] lg:h-[50px] rounded-lg px-2
                                 outline outline-4 outline-offset-2 outline-primaryColor text-white
                                 ">New
@@ -47,7 +47,7 @@
                 <section class="overflow-y-auto lg:max-h-[500px] lg:max-w-[750px]">
                     <div class="flex justify-center items-center gap-2 px-2 mt-3 text-white">
                         <button class="ongoingbtn bg-primaryColor w-32 rounded-lg px-2 lg:hidden">Management</button>
-                        <button class="donebtn bg-primaryColor w-32 rounded-lg px-2 lg:hidden">Reflection</button>
+                        <button class="donebtn bg-primaryColor w-32 rounded-lg px-2 lg:hidden">Done</button>
                         <button class="newbtn bg-primaryColor w-32 rounded-lg px-2 lg:hidden">New task</button>
                     </div>
                     <div>
@@ -83,7 +83,16 @@
                         <!-- end  Content on going -->
                         <!-- Content done -->
                         <div id="doneContent" class="hidden">
-                            done
+                            <div class="mt-[30px] mx-6 lg:mx-24 lg-mt-0 ">
+                                <div class="bg-tertiaryColor w-auto h-fit -mx-2 rounded-2xl px-3 py-3 lg:px-5">
+                                    <h1 class="font-sans font-bold text-center text-[20px] lg:px-0 lg:text-[25px] xl:mx-[80px]
+                                    ">Your Completed Work</h1>
+                                    <!-- Card -->
+                                    <div class=" mt-[30px]" id="doneTask" >
+                                    </div>
+                                    <!-- end of card -->
+                                </div>
+                            </div>
                         </div>
                         <!-- End Content done -->
                         <!-- content insert task -->
