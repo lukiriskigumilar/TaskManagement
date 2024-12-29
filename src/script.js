@@ -265,27 +265,31 @@ function updateOngoingTasks() {
     // Ambil data dari localStorage
     const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
-    // Sorting tugas berdasarkan prioritas, status selesai, dan waktu pembuatan
     tasks.sort((a, b) => {
         const priorityOrder = { "High": 1, "Medium": 2, "Low": 3 };
-
-        // Sort by priority
+    
+        // 1. Sort by priority
         const priorityComparison = priorityOrder[a.priorityTask] - priorityOrder[b.priorityTask];
         if (priorityComparison !== 0) {
             return priorityComparison;
         }
-
-        // Sort by finished status (unfinished tasks first)
-        const finishedComparison = (a.finished === b.finished) ? 0 : a.finished ? 1 : -1;
-        if (finishedComparison !== 0) {
-            return finishedComparison;
+    
+        // 2. Sort by deadline (day and time) with the most upcoming tasks first
+        const aDeadline = new Date(`${a.date}T${a.time}`).getTime();
+        const bDeadline = new Date(`${b.date}T${b.time}`).getTime();
+    
+        // If the task is overdue, the task with the closer deadline comes first
+        const deadlineComparison = aDeadline - bDeadline;
+        if (deadlineComparison !== 0) {
+            return deadlineComparison; // This will sort by the closest deadline
         }
-
-        // Sort by creation time (earlier tasks first)
+    
+        // 3. Sort by creation time (earlier tasks first)
         const aCreationTime = new Date(a.date + 'T' + a.time).getTime();
         const bCreationTime = new Date(b.date + 'T' + b.time).getTime();
         return aCreationTime - bCreationTime;
     });
+    
 
 
     // Iterasi data tugas
@@ -346,14 +350,16 @@ function updateOngoingTasks() {
             </div>
             <hr>
             <div class="flex justify-between items-center pl-4 pr-1 gap-2 py-4">
-                <p class=" ${deadlineColor} ${task.finished ? 'text-gray-500 line-through' : ''}">${task.taskName}</p>
+                <p class=" ${deadlineColor} ${task.finished ? 'text-gray-500 line-through' : 'text-slate-950'}">${task.taskName}</p>
                 <div class="flex flex-col">
-                <button 
-                class="${(task.finished || task.taskMissed) ? 'bg-gray-500 rounded-md text-white px-1 finish-btn' : 'bg-secondaryColor rounded-md text-white px-1 finish-btn'}" 
+                <input 
+                type="checkbox" 
+                class="finish-checkbox transform scale-150" 
                 data-id="${task.id}" 
-                ${(task.finished || task.taskMissed) ? 'disabled' : ''}>
-                Finish
-            </button>
+                ${task.finished ? 'checked' : ''} 
+                ${(task.finished || task.taskMissed) ? 'disabled' : ''}
+            />
+            
                     <button class="bg-red-700 rounded-md text-white px-1 mt-2 delete-btn" data-id="${task.id}">Delete</button>
                 </div>
             </div>
@@ -361,14 +367,40 @@ function updateOngoingTasks() {
         tasksContainer.appendChild(taskElement);
     });
 
+    // Fungsi untuk menyelesaikan tugas
+document.querySelectorAll('.finish-checkbox').forEach(checkbox => {
+    checkbox.addEventListener('change', event => {
+        const taskId = event.target.dataset.id;
+        const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+        const taskIndex = tasks.findIndex(task => task.id === taskId);
+
+        if (taskIndex !== -1 && !tasks[taskIndex].finished && !tasks[taskIndex].taskMissed) {
+            const now = new Date();
+            
+            // Format waktu selesai
+            const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+            const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            const formattedDate = `${days[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]} ${String(now.getFullYear()).slice(-2)} ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+            
+            // Tandai tugas sebagai selesai
+            tasks[taskIndex].finished = true;
+            tasks[taskIndex].finishedAt = formattedDate;
+
+            // Perbarui ke localStorage
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+
+            // Perbarui UI
+            updateOngoingTasks();
+        }
+    });
+});
+
     // Tambahkan event listener untuk tombol Finish dan Delete
     document.querySelectorAll('.delete-btn').forEach(btn => {
         btn.addEventListener('click', deleteTask);
     });
 
-    document.querySelectorAll('.finish-btn').forEach(btn => {
-        btn.addEventListener('click', finishTask);
-    });
+
 }
 
 // Fungsi untuk menghapus tugas
@@ -386,47 +418,8 @@ function deleteTask(event) {
     }
 }
 
-// Fungsi untuk menyelesaikan tugas
-function finishTask(event) {
-
-    const taskId = event.target.dataset.id;
-    let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-
-    const confrimFinish = window.confirm("Are you sure you have completed this task?");
-    //cari task  
-    if (confrimFinish) {
-        const taskIndex = tasks.findIndex(task => task.id === taskId);
-        if (taskIndex !== -1) {
-            const now = new Date();
-
-            //format waktu
-            const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-            const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-            const formattedDate = `${days[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]} ${String(now.getFullYear()).slice(-2)} ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
-
-            tasks[taskIndex].finished = true; //tandai sebagai tugas selesai
-            tasks[taskIndex].finishedAt = formattedDate; //masukan waktu
-            localStorage.setItem('tasks', JSON.stringify(tasks));
-
-            const taskElement = event.target.closest('.task-item');
-            if (taskElement) {
-                const taskNameElement = taskElement.querySelector('p');
-                if (taskNameElement) {
-                    taskElement.style.textDecoration = 'line-through';
-                    taskNameElement.style.color = 'gray'
-                }
-
-            }
-            alert("Task has been finished")
-            updateOngoingTasks();
-
-        }
-    }
 
 
-
-
-}
 
 // Panggil fungsi ini untuk memperbarui data saat halaman dimuat
 updateOngoingTasks();
