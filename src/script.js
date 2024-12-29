@@ -182,19 +182,22 @@ function savNewTask(event) { // Tambahkan parameter event
 
     alert("task added");
     setTimeout(() => {
-        const doneContent = document.getElementById('doneContent');
+        const ongoingContent = document.getElementById('ongoingContent');
         const newContent = document.getElementById('newContent');
-        const donebtn = document.querySelectorAll('.donebtn');
+        const ongoingbtn = document.querySelectorAll('.ongoingbtn');
         const newbtn = document.querySelectorAll('.newbtn');
 
         newContent.classList.add('hidden');
-        doneContent.classList.remove('hidden');
+        ongoingContent.classList.remove('hidden');
+        updateOngoingTasks();
         newbtn.forEach(btn => {
             btn.classList.remove('bg-secondaryColor', 'font-bold', 'text-white');
         });
-        donebtn.forEach(btn => {
+        ongoingbtn.forEach(btn => {
             btn.classList.add('bg-secondaryColor', 'font-bold', 'text-white');
         });
+        updateTaskStatus();
+        updateOngoingTasks();
 
     })
     document.getElementById('taskForm').reset(); // Reset form setelah submit
@@ -202,3 +205,228 @@ function savNewTask(event) { // Tambahkan parameter event
 
 // Pasang event listener *di luar* fungsi savNewTask
 document.getElementById('taskForm').addEventListener('submit', savNewTask);
+
+
+
+
+
+function updateTaskStatus() {
+    const tasks = JSON.parse(localStorage.getItem('tasks')) || []; // Ambil data dari localStorage
+
+    tasks.forEach(task => {
+        const deadline = new Date(`${task.date}T${task.time}`);
+        const now = new Date();
+        const diffTime = deadline - now;
+        let timeMessage = '';
+        let taskMissed = false;
+
+        if (diffTime > 0) {
+            const days = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diffTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diffTime % (1000 * 60 * 60)) / (1000 * 60));
+            timeMessage = `${days}D ${hours}H ${minutes}M to go`;
+        } else {
+            timeMessage = "Task Deadline Missed";
+            taskMissed = true; // Tandai jika deadline sudah terlewat
+        }
+
+        if (!task.finished) {
+            // Perbarui hanya jika nilai baru berbeda dari nilai saat ini
+            if (task.timeMessage !== timeMessage) {
+                task.timeMessage = timeMessage;
+            }
+            if (task.taskMissed !== taskMissed) {
+                task.taskMissed = taskMissed;
+            }
+
+            // Simpan data tugas yang diperbarui ke localStorage
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+        }
+    });
+
+
+}
+
+// Panggil fungsi setiap menit
+setInterval(updateTaskStatus, 60000); // Interval 60 detik (1 menit)
+
+// Jalankan segera saat halaman dimuat
+updateTaskStatus();
+
+//autoupdate tamplilan per menit
+setInterval(updateOngoingTasks, 60000)
+updateOngoingTasks();
+
+// Fungsi untuk memperbarui tampilan tugas
+function updateOngoingTasks() {
+    const tasksContainer = document.getElementById('tasksContainer');
+    tasksContainer.innerHTML = ''; // Hapus konten lama
+
+    // Ambil data dari localStorage
+    const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+    // Sorting tugas berdasarkan prioritas, status selesai, dan waktu pembuatan
+    tasks.sort((a, b) => {
+        const priorityOrder = { "High": 1, "Medium": 2, "Low": 3 };
+
+        // Sort by priority
+        const priorityComparison = priorityOrder[a.priorityTask] - priorityOrder[b.priorityTask];
+        if (priorityComparison !== 0) {
+            return priorityComparison;
+        }
+
+        // Sort by finished status (unfinished tasks first)
+        const finishedComparison = (a.finished === b.finished) ? 0 : a.finished ? 1 : -1;
+        if (finishedComparison !== 0) {
+            return finishedComparison;
+        }
+
+        // Sort by creation time (earlier tasks first)
+        const aCreationTime = new Date(a.date + 'T' + a.time).getTime();
+        const bCreationTime = new Date(b.date + 'T' + b.time).getTime();
+        return aCreationTime - bCreationTime;
+    });
+
+
+    // Iterasi data tugas
+    tasks.forEach(task => {
+        const deadline = new Date(`${task.date}T${task.time}`);
+        const now = new Date();
+        const diffTime = deadline - now;
+
+
+
+        //coba pilih warna untuk deadline 
+        deadlineColor = ''
+        if (task.timeMessage === "Task Deadline Missed") {
+            deadlineColor = 'text-red-900'
+        } else {
+            deadlineColor = 'text-blue-900'
+        }
+
+        // Tentukan warna berdasarkan prioritas
+        let taskClass = '';
+        switch (task.priorityTask) {
+            case 'High':
+                taskClass = 'bg-taskHighColor';
+                break;
+            case 'Medium':
+                taskClass = 'bg-taskMediumColor';
+                break;
+            case 'Low':
+                taskClass = 'bg-taskLowColor';
+                break;
+            default:
+                taskClass = 'bg-gray-200'; // Warna default jika prioritas tidak dikenal
+        }
+
+        //buat warna style prioritas task
+        let taskClassPriority = '';
+        switch (task.priorityTask) {
+            case 'High':
+                taskClassPriority = 'text-red-900';
+                break;
+            case 'Medium':
+                taskClassPriority = 'text-yellow-900';
+                break;
+            case 'Low':
+                taskClassPriority = 'text-blue-900';
+                break;
+            default:
+                taskClassPriority = 'text-black'; // Warna default jika prioritas tidak dikenal
+        }
+
+        // Buat elemen HTML tugas
+        const taskElement = document.createElement('div');
+        taskElement.className = `w-auto lg:w-[540px] -mx-1 ${taskClass} block shadow-lg rounded-lg mb-4 lg:width-[120px]`;
+        taskElement.innerHTML = `
+            <div class="flex justify-between items-center pl-1 pr-1 py-2 lg:px-3">
+                <p class="font-bold ${taskClassPriority}">${task.priorityTask} Priority</p>
+                <p class="${deadlineColor} ${task.finished ? 'text-green-800' : ''}">${task.finished ? `${task.finishedAt} (Done)` : task.timeMessage}</p>
+            </div>
+            <hr>
+            <div class="flex justify-between items-center pl-4 pr-1 gap-2 py-4">
+                <p class=" ${deadlineColor} ${task.finished ? 'text-gray-500 line-through' : ''}">${task.taskName}</p>
+                <div class="flex flex-col">
+                <button 
+                class="${(task.finished || task.taskMissed) ? 'bg-gray-500 rounded-md text-white px-1 finish-btn' : 'bg-secondaryColor rounded-md text-white px-1 finish-btn'}" 
+                data-id="${task.id}" 
+                ${(task.finished || task.taskMissed) ? 'disabled' : ''}>
+                Finish
+            </button>
+                    <button class="bg-red-700 rounded-md text-white px-1 mt-2 delete-btn" data-id="${task.id}">Delete</button>
+                </div>
+            </div>
+        `;
+        tasksContainer.appendChild(taskElement);
+    });
+
+    // Tambahkan event listener untuk tombol Finish dan Delete
+    document.querySelectorAll('.delete-btn').forEach(btn => {
+        btn.addEventListener('click', deleteTask);
+    });
+
+    document.querySelectorAll('.finish-btn').forEach(btn => {
+        btn.addEventListener('click', finishTask);
+    });
+}
+
+// Fungsi untuk menghapus tugas
+function deleteTask(event) {
+    const taskId = event.target.dataset.id;
+    let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+    const confrimDelete = window.confirm("Are you sure you want to delete this task?");
+
+    if (confrimDelete) {
+        tasks = tasks.filter(task => task.id !== taskId);
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+        updateOngoingTasks();
+        alert("Task has been deleted")
+    }
+}
+
+// Fungsi untuk menyelesaikan tugas
+function finishTask(event) {
+
+    const taskId = event.target.dataset.id;
+    let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+    const confrimFinish = window.confirm("Are you sure you have completed this task?");
+    //cari task  
+    if (confrimFinish) {
+        const taskIndex = tasks.findIndex(task => task.id === taskId);
+        if (taskIndex !== -1) {
+            const now = new Date();
+
+            //format waktu
+            const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+            const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            const formattedDate = `${days[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]} ${String(now.getFullYear()).slice(-2)} ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+
+            tasks[taskIndex].finished = true; //tandai sebagai tugas selesai
+            tasks[taskIndex].finishedAt = formattedDate; //masukan waktu
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+
+            const taskElement = event.target.closest('.task-item');
+            if (taskElement) {
+                const taskNameElement = taskElement.querySelector('p');
+                if (taskNameElement) {
+                    taskElement.style.textDecoration = 'line-through';
+                    taskNameElement.style.color = 'gray'
+                }
+
+            }
+            alert("Task has been finished")
+            updateOngoingTasks();
+
+        }
+    }
+
+
+
+
+}
+
+// Panggil fungsi ini untuk memperbarui data saat halaman dimuat
+updateOngoingTasks();

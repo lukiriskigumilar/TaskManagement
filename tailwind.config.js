@@ -11,6 +11,11 @@ module.exports = {
           secondaryColor: '#4DA1A9',
           tertiaryColor: '#79D7BE',
           quaternaryColor: '#F6F4F0',
+          taskHighColor :'#FF9F9F',
+          taskMediumColor:'#F3FFCC',
+          taskLowColor:'#C0FDFF',
+  
+
       }
     },
   },
