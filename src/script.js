@@ -95,7 +95,7 @@ ongoingbtn.forEach(button => { // Loop melalui setiap tombol
         ongoingContent.classList.remove('hidden');
         doneContent.classList.add('hidden');
         newContent.classList.add('hidden');
-       
+
 
         // Hapus style dari semua tombol ongoing
         donebtn.forEach(btn => {
@@ -135,11 +135,11 @@ donebtn.forEach(button => { // Loop melalui setiap tombol
 
 newbtn.forEach(button => { // Loop melalui setiap tombol
     button.addEventListener('click', () => {
-       newContent.classList.remove('hidden');
+        newContent.classList.remove('hidden');
         doneContent.classList.add('hidden');
         ongoingContent.classList.add('hidden');
-        
-       
+
+
 
         // Hapus style dari semua tombol ongoing
         donebtn.forEach(btn => {
@@ -158,3 +158,38 @@ newbtn.forEach(button => { // Loop melalui setiap tombol
 
 
 
+//save add new task
+
+function savNewTask(event) { // Tambahkan parameter event
+    event.preventDefault(); // Pindahkan ini ke awal fungsi
+    const taskName = document.getElementById('taskName').value;
+    const priorityTask = document.getElementById('priorityTask').value;
+    const deadlineDate = document.getElementById('deadlineDate').value;
+    const [date, time] = deadlineDate.split('T');
+    const taskId = 'task' + new Date().getTime();
+
+    const taskData = {
+        id: taskId,
+        taskName: taskName,
+        priorityTask: priorityTask,
+        date: date,
+        time: time,
+    };
+
+    let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    tasks.push(taskData);
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+
+    alert("task added");
+    setTimeout(() => {
+        const doneContent = document.getElementById('doneContent');
+        const newContent = document.getElementById('newContent');
+
+        newContent.classList.add('hidden');
+        doneContent.classList.remove('hidden');
+    })
+    document.getElementById('taskForm').reset(); // Reset form setelah submit
+}
+
+// Pasang event listener *di luar* fungsi savNewTask
+document.getElementById('taskForm').addEventListener('submit', savNewTask);
