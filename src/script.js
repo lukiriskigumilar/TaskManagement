@@ -21,6 +21,7 @@ if (document.getElementById('userForm')) {
 }
 //end of save data user 
 
+
 // start show data user logic
 window.onload = function () {
     // Ambil data dari localStorage
@@ -42,7 +43,8 @@ window.onload = function () {
 };
 //end show data logic user
 
-//start time logib
+
+//start time 
 function updateTime() {
     const now = new Date();
 
@@ -233,8 +235,8 @@ function updateTaskStatus() {
         } else {
             timeMessage = "Task Deadline Missed";
             taskMissed = true; // Tandai jika deadline sudah terlewat
-        }  
-        
+        }
+
 
         if (!task.finished) {
             task.timeMessage = timeMessage;
@@ -248,7 +250,7 @@ function updateTaskStatus() {
 }
 
 
-// Panggil fungsi setiap menit
+// Panggil fungsi setiap menit untuk memeriksa deadline task
 setInterval(updateTaskStatus, 60000); // Interval 60 detik (1 menit)
 
 // Jalankan segera saat halaman dimuat
@@ -264,7 +266,11 @@ function updateOngoingTasks() {
     tasksContainer.innerHTML = ''; // Hapus konten lama
 
     // Ambil data dari localStorage
-    const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    const data = JSON.parse(localStorage.getItem('tasks')) || [];
+
+    const tasks = data.filter(data => data.finished === false);
+
+
 
     tasks.sort((a, b) => {
         const priorityOrder = { "High": 1, "Medium": 2, "Low": 3 };
@@ -421,8 +427,7 @@ function deleteTask(event) {
 }
 // Panggil fungsi ini untuk memperbarui data saat halaman dimuat
 updateOngoingTasks();
-//--end of code for task on going-- 
-
+updateDoneTasks()
 
 
 function updateDoneTasks() {
@@ -431,8 +436,8 @@ function updateDoneTasks() {
 
     // Ambil data dari localStorage
     const data = JSON.parse(localStorage.getItem('tasks')) || [];
-    
-    const tasks= data.filter(data => data.finished == true && data.taskMissed == false);
+
+    const tasks = data.filter(data => data.finished == true && data.taskMissed == false);
 
 
     // Iterasi data tugas
@@ -460,5 +465,26 @@ function updateDoneTasks() {
     });
 
 }
-setInterval(updateDoneTasks(), 60000)
-updateDoneTasks();
+updateDoneTasks()
+
+
+// Fungsi untuk menghapus semua tugas
+function deleteAllTasks() {
+    const confirmDelete = window.confirm("Are you sure you want to delete all tasks?");
+    
+    if (confirmDelete) {
+        // Hapus semua tugas dari localStorage
+        localStorage.removeItem('tasks');
+        
+        // Perbarui tampilan tugas
+        updateOngoingTasks();
+        updateDoneTasks();
+        
+        alert("All tasks have been deleted.");
+    }
+}
+
+// Tambahkan event listener ke tombol "Delete All Tasks"
+document.getElementById('deleteAllBtn').addEventListener('click', deleteAllTasks);
+document.getElementById('deleteAllBtnMobile').addEventListener('click', deleteAllTasks);
+

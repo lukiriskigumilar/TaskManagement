@@ -693,6 +693,10 @@ video {
   height: fit-content;
 }
 
+.h-10 {
+  height: 2.5rem;
+}
+
 .min-h-screen {
   min-height: 100vh;
 }
@@ -711,6 +715,10 @@ video {
 
 .w-full {
   width: 100%;
+}
+
+.w-64 {
+  width: 16rem;
 }
 
 .max-w-\[1200px\] {
@@ -771,8 +779,24 @@ video {
   gap: 0px;
 }
 
+.overflow-x-auto {
+  overflow-x: auto;
+}
+
 .overflow-y-auto {
   overflow-y: auto;
+}
+
+.overflow-x-scroll {
+  overflow-x: scroll;
+}
+
+.overflow-y-scroll {
+  overflow-y: scroll;
+}
+
+.whitespace-nowrap {
+  white-space: nowrap;
 }
 
 .rounded {
@@ -864,6 +888,11 @@ video {
 .bg-tertiaryColor {
   --tw-bg-opacity: 1;
   background-color: rgb(121 215 190 / var(--tw-bg-opacity, 1));
+}
+
+.bg-red-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(220 38 38 / var(--tw-bg-opacity, 1));
 }
 
 .p-3 {
@@ -1072,6 +1101,18 @@ video {
   outline-color: #2E5077;
 }
 
+.outline-red-900 {
+  outline-color: #7f1d1d;
+}
+
+.outline-red-700 {
+  outline-color: #b91c1c;
+}
+
+.outline-red-600 {
+  outline-color: #dc2626;
+}
+
 .filter {
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
@@ -1116,6 +1157,46 @@ video {
     margin-top: 3%;
   }
 
+  .lg\:-mt-24 {
+    margin-top: -6rem;
+  }
+
+  .lg\:mt-10 {
+    margin-top: 2.5rem;
+  }
+
+  .lg\:mt-8 {
+    margin-top: 2rem;
+  }
+
+  .lg\:mt-5 {
+    margin-top: 1.25rem;
+  }
+
+  .lg\:mt-4 {
+    margin-top: 1rem;
+  }
+
+  .lg\:-mt-3 {
+    margin-top: -0.75rem;
+  }
+
+  .lg\:-mt-1 {
+    margin-top: -0.25rem;
+  }
+
+  .lg\:-mt-4 {
+    margin-top: -1rem;
+  }
+
+  .lg\:-mt-16 {
+    margin-top: -4rem;
+  }
+
+  .lg\:-mt-\[60px\] {
+    margin-top: -60px;
+  }
+
   .lg\:flex {
     display: flex;
   }
@@ -1134,6 +1215,14 @@ video {
 
   .lg\:h-\[50px\] {
     height: 50px;
+  }
+
+  .lg\:h-\[40px\] {
+    height: 40px;
+  }
+
+  .lg\:h-\[30px\] {
+    height: 30px;
   }
 
   .lg\:max-h-\[500px\] {
@@ -1158,6 +1247,26 @@ video {
 
   .lg\:place-items-start {
     place-items: start;
+  }
+
+  .lg\:overflow-scroll {
+    overflow: scroll;
+  }
+
+  .lg\:overflow-x-hidden {
+    overflow-x: hidden;
+  }
+
+  .lg\:overflow-y-hidden {
+    overflow-y: hidden;
+  }
+
+  .lg\:overflow-x-scroll {
+    overflow-x: scroll;
+  }
+
+  .lg\:overflow-y-scroll {
+    overflow-y: scroll;
   }
 
   .lg\:rounded-bl-3xl {
