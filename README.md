@@ -22,7 +22,9 @@ This is a simple **Task Management** or **To-Do List** application built using *
 
 ## Demo
 
-Check out the live demo of the app here: [Task Management App Demo](https://ismytaskmate.netlify.app/)
+Check out the live demo of the app here: 
+[Task Management App Demo link ](https://mytaskmanager.lukiriski.my.id/src/index.html)
+[Task Management App Demo link alternative ](https://ismytaskmate.netlify.app/)
 
 ## Technologies Used
 
